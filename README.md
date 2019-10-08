@@ -1,6 +1,8 @@
 # GitHub Actions Cheat sheet
 
-Repository which contains often used patterns for automating the CI/CD workflow.
+This repository contains often used patterns for automating CI/CD workflows.
+
+Keep in mind, that for most of these patterns the corresponding environment variables or local bash variables are necessary.
 
 ## Patterns
 
@@ -47,15 +49,6 @@ docker build -f deploy/Dockerfile -t $DOCKER_IMAGE_NAME .
 docker push $DOCKER_IMAGE_NAME
 ```
 
-### Install `kubectl` and `rancher`
-
-```bash
-sudo curl -sL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl
-sudo chmod +x /usr/local/bin/kubectl
-sudo curl -sL https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz | sudo tar xvz -C /usr/local/bin/ --strip-components=2
-sudo chmod +x /usr/local/bin/rancher
-```
-
 ### Run an Action on some branches and on `tags`
 
 ```yaml
@@ -68,7 +61,16 @@ if: |
     ))
 ```
 
-### Update Rancher 2 Workload
+### Install `kubectl` and `rancher`
+
+```bash
+sudo curl -sL -o /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.15.1/bin/linux/amd64/kubectl
+sudo chmod +x /usr/local/bin/kubectl
+sudo curl -sL https://github.com/rancher/cli/releases/download/v2.2.0/rancher-linux-amd64-v2.2.0.tar.gz | sudo tar xvz -C /usr/local/bin/ --strip-components=2
+sudo chmod +x /usr/local/bin/rancher
+```
+
+### Update a Rancher 2 Workload
 
 ```bash
 rancher login --context $RANCHER_CONTEXT --token $RANCHER_TOKEN https://rancher.your-company.com/v3
